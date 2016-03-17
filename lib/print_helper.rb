@@ -1,7 +1,7 @@
 module PrintHelper
     private
     def get_abs_width(width_percentage, offset=0)
-        abs_width = (Integer(((width_percentage.to_f / 100.to_f) * @screen_width.to_f).round)) - offset
+        abs_width = (Integer(((width_percentage.to_f / 100.to_f) * @screen_width.to_f).floor)) - offset
 
         return abs_width <= 0 ? 1 : abs_width
     end
