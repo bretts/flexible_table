@@ -14,7 +14,7 @@ module PrintHelper
         line_header = ''
         
         @columns.each do |col|
-            get_abs_width(col.width_percentage, 3).times do |t|
+            get_abs_width(col.width_percentage).times do |t|
                 line_header << '-'
             end
         end
