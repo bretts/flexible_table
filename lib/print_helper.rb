@@ -7,7 +7,7 @@ module PrintHelper
     end
 
     def get_printable_output(str, abs_width)
-        return str[0..(abs_width - 1)]
+        return str.to_s[0..(abs_width - 1)]
     end
 
     def print_header_line
