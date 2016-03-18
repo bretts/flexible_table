@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'flexible_table'
-  s.version     = '0.0.2'
+  s.version     = '0.0.3'
   s.date        = '2015-03-18'
   s.summary     = "Prints a table that can have different column widths that also respond in size relative to the size of the terminal window"
   s.description = "Prints a table that can have different column widths that also respond in size relative to the size of the terminal window"
