@@ -10,8 +10,8 @@ class FlexibleTable
         @columns      = []
     end
 
-    def add_column(title, width_percentage)
-        @columns << FlexibleColumn.new(title, width_percentage)
+    def add_column(title, width_percentage, **args)
+        @columns << FlexibleColumn.new(title, width_percentage, args)
     end
 
     def print_header()
@@ -21,7 +21,13 @@ class FlexibleTable
             abs_width = get_abs_width(col.width_percentage, 3)
             output    = get_printable_output(col.header, abs_width)
 
-            printf("%-#{abs_width}s", output)
+            if(@columns[index].justify_header == :left)
+                printf("%-#{abs_width}s", output)
+            elsif(@columns[index].justify_header == :right)
+                printf("%#{abs_width}s", output)
+            else
+                printf("%-#{abs_width}s", output) # default to left justify
+            end
             printf(' | ') unless index == (@columns.length - 1)
         end
 
@@ -35,8 +41,15 @@ class FlexibleTable
         args.each_with_index do |element, index|
             abs_width = get_abs_width(@columns[index].width_percentage, 3)
             output    = get_printable_output(element, abs_width)
-            
-            printf("%-#{abs_width}s", output)
+
+            if(@columns[index].justify_row == :left)
+                printf("%-#{abs_width}s", output)
+            elsif(@columns[index].justify_row == :right)
+                printf("%#{abs_width}s", output)
+            else
+                printf("%-#{abs_width}s", output) # default to left justify
+            end
+
             printf(' | ') unless index == (@columns.length - 1)
         end
         puts "\n"
