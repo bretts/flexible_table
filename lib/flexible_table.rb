@@ -21,9 +21,9 @@ class FlexibleTable
             abs_width = get_abs_width(col.width_percentage, 3)
             output    = get_printable_output(col.header, abs_width)
 
-            if(@columns[index].justify_header == :left)
+            if(@columns[index].justify_column_header == :left)
                 printf("%-#{abs_width}s", output)
-            elsif(@columns[index].justify_header == :right)
+            elsif(@columns[index].justify_column_header == :right)
                 printf("%#{abs_width}s", output)
             else
                 printf("%-#{abs_width}s", output) # default to left justify
@@ -42,9 +42,9 @@ class FlexibleTable
             abs_width = get_abs_width(@columns[index].width_percentage, 3)
             output    = get_printable_output(element, abs_width)
 
-            if(@columns[index].justify_row == :left)
+            if(@columns[index].justify_column_content == :left)
                 printf("%-#{abs_width}s", output)
-            elsif(@columns[index].justify_row == :right)
+            elsif(@columns[index].justify_column_content == :right)
                 printf("%#{abs_width}s", output)
             else
                 printf("%-#{abs_width}s", output) # default to left justify

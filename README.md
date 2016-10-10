@@ -22,9 +22,9 @@ Create a table with a bunch of columns and specify their width percetages (perce
 Specify right justify on rows and column headers (default is left justify)
 ```
  table = FlexibleTable.new
- table.add_column("Cool Stuff", 10, justify_header: :right, justify_row: :left)
+ table.add_column("Cool Stuff", 10, justify_column_header: :right, justify_column_content: :left)
  table.add_column("Other Stuff", 10) # defaults to left justify everything
- table.add_column("More Stuff", 10, justify_row: :right)
+ table.add_column("More Stuff", 10, justify_column_content: :right)
 
  table.print_header
  table.print_row("im column 1", "im column 2", "im column 3")
