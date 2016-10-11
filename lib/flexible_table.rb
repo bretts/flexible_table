@@ -28,7 +28,7 @@ class FlexibleTable
 	end
 
 	def print_header()
-		validate_column_width_percentages
+		exit unless columns_fit_screen?(@columns)
 
 		@columns.each_with_index do |col, index|
 			abs_width = get_abs_width(col.width_percentage, 3)
@@ -49,7 +49,7 @@ class FlexibleTable
 	end
 
 	def print_row(*args)
-		validate_column_width_percentages
+		exit unless columns_fit_screen?(@columns)
 
 		args.each_with_index do |element, index|
 			abs_width = get_abs_width(@columns[index].width_percentage, 3)

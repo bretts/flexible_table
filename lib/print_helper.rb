@@ -1,5 +1,4 @@
 module PrintHelper
-	private
 	def get_abs_width(width_percentage, offset=0)
 		abs_width = (Integer(((width_percentage.to_f / 100.to_f) * @screen_width.to_f).floor)) - offset
 
@@ -21,13 +20,16 @@ module PrintHelper
 		puts "#{line_header}\n"
 	end
 
-	def validate_column_width_percentages
-		total_percentage = (@columns.map { |x| x.width_percentage }).reduce(:+)
+	def columns_fit_screen?(columns)
+		total_percentage = (columns.map { |x| x.width_percentage }).reduce(:+)
 		if(total_percentage > 100)
-			puts "Your column percentages can't add up to more than 100%\n"
-			@columns.each { |col| puts "\t#{col.header}: \t#{col.width_percentage}" }
+			puts "Your column percentages can't add up to more than 100\n"
+			columns.each { |col| puts "\t#{col.header}: \t#{col.width_percentage}" }
 			puts "\tTotal percetage: #{total_percentage}"
-			exit
+
+			return false
+		else
+			return true
 		end
 	end
 end
