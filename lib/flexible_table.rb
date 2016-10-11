@@ -41,7 +41,7 @@ class FlexibleTable
 			else
 				printf("%-#{abs_width}s", output) # default to left justify
 			end
-			printf(' | ') unless index == (@columns.length - 1)
+			print_column_separator unless index == (@columns.length - 1)
 		end
 
 		puts "\n"
@@ -63,7 +63,7 @@ class FlexibleTable
 				printf("%-#{abs_width}s", output) # default to left justify
 			end
 
-			printf(' | ') unless index == (@columns.length - 1)
+			print_column_separator unless index == (@columns.length - 1)
 		end
 		puts "\n"
 	end

@@ -32,10 +32,11 @@ module PrintHelper
 
 	def print_header_line(total_screen_columns)
 		line_header = ''
+		separator   = tty_supports_unicode? ? "\u2500" : '-'
 
 		@columns.each do |col|
 			get_column_width(total_screen_columns, col.width_percentage).times do |t|
-				line_header << '-'
+				line_header << separator
 			end
 		end
 		puts "#{line_header}\n"
@@ -52,5 +53,18 @@ module PrintHelper
 		else
 			return true
 		end
+	end
+
+	def print_column_separator
+		separator = tty_supports_unicode? ? "\u2502" : '|'
+
+		printf(" #{separator} ")
+	end
+
+	private
+	def tty_supports_unicode?
+		@tty_is_unicode_enabled ||= ENV.values_at("LC_ALL","LC_CTYPE","LANG").compact.any? { |x| x.downcase.include?('utf-8') }
+
+		return @tty_is_unicode_enabled
 	end
 end
