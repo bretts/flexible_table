@@ -13,3 +13,4 @@ Thumbs.db
 ###############
 *.gem
 *.tmp
+doc/
