@@ -1,19 +1,40 @@
 module PrintHelper
-	def get_abs_width(width_percentage, offset=0)
-		abs_width = (Integer(((width_percentage.to_f / 100.to_f) * @screen_width.to_f).floor)) - offset
+	##
+	# Returns the width that a column should occupy based on screen size
+	#
+	# === Attributes
+	#
+	# +total_screen_columns+ - An Integer representing columns on the terminal window
+	# +width_percentage+ - An Integer representing the percentage of the total_screen_columns that the column should occupy
+	def get_column_width(total_screen_columns, width_percentage)
+		column_width = (Integer(((width_percentage.to_f / 100.to_f) * total_screen_columns.to_f).floor))
 
-		return abs_width <= 0 ? 1 : abs_width
+		return column_width
+	end
+
+	##
+	# Returns a slightly truncated version of #get_column_width in order to compensate for different font sizes.
+	# This is the method that should be used when calculating what gets printed into a column
+	#
+	# === Attributes
+	#
+	# +total_screen_columns+ - An Integer representing columns on the terminal window
+	# +width_percentage+ - An Integer representing the percentage of the total_screen_columns that the column should occupy
+	def get_abs_column_width(total_screen_columns, width_percentage)
+		column_width = get_column_width(total_screen_columns, width_percentage) - 3
+
+		return column_width <= 0 ? 1 : column_width
 	end
 
 	def get_printable_output(str, abs_width)
 		return str.to_s[0..(abs_width - 1)]
 	end
 
-	def print_header_line
+	def print_header_line(total_screen_columns)
 		line_header = ''
 
 		@columns.each do |col|
-			get_abs_width(col.width_percentage).times do |t|
+			get_column_width(total_screen_columns, col.width_percentage).times do |t|
 				line_header << '-'
 			end
 		end

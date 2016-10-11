@@ -19,8 +19,8 @@ class FlexibleTable
 	include PrintHelper
 
 	def initialize
-		@screen_width = IO.console.winsize[1]
-		@columns      = []
+		@total_screen_columns = IO.console.winsize[1]
+		@columns              = []
 	end
 
 	def add_column(title, width_percentage, **args)
@@ -31,7 +31,7 @@ class FlexibleTable
 		exit unless columns_fit_screen?(@columns)
 
 		@columns.each_with_index do |col, index|
-			abs_width = get_abs_width(col.width_percentage, 3)
+			abs_width = get_abs_column_width(@total_screen_columns, col.width_percentage)
 			output    = get_printable_output(col.header, abs_width)
 
 			if(@columns[index].justify_header == :left)
@@ -45,14 +45,14 @@ class FlexibleTable
 		end
 
 		puts "\n"
-		print_header_line
+		print_header_line(@total_screen_columns)
 	end
 
 	def print_row(*args)
 		exit unless columns_fit_screen?(@columns)
 
 		args.each_with_index do |element, index|
-			abs_width = get_abs_width(@columns[index].width_percentage, 3)
+			abs_width = get_abs_column_width(@total_screen_columns, @columns[index].width_percentage)
 			output    = get_printable_output(element, abs_width)
 
 			if(@columns[index].justify_row == :left)
