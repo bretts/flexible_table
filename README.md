@@ -3,7 +3,7 @@
 Prints a table that can have different column widths that also respond in size relative to the size of the terminal window
 
 
-## Example Usage
+## Example Usage (You can run 'rake demo' to see the output)
 
 
 ### Basic Example

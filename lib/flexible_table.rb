@@ -1,6 +1,7 @@
 require_relative './flexible_column'
 require_relative './print_helper'
 require 'io/console'
+require_relative './terminal_utils'
 
 ##
 # This is the main class for creating Tables. The user can create a series of columns, and the print those columns out.
