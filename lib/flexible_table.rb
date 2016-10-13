@@ -32,15 +32,17 @@ class FlexibleTable
 		exit unless columns_fit_screen?(@columns)
 
 		@columns.each_with_index do |col, index|
-			abs_width = get_abs_column_width(@total_screen_columns, col.width_percentage)
-			output    = get_printable_output(col.header, abs_width)
+			abs_width    = get_abs_column_width(@total_screen_columns, col.width_percentage)
+			color_prefix = col.header.instance_eval { @tu_color_prefix } || ''
+			color_suffix = col.header.instance_eval { @tu_color_suffix } || ''
+			output       = get_printable_output(col.header, abs_width)
 
 			if(@columns[index].justify_header == :left)
-				printf("%-#{abs_width}s", output)
+				printf("%s%-#{abs_width}s%s", color_prefix, output, color_suffix)
 			elsif(@columns[index].justify_header == :right)
-				printf("%#{abs_width}s", output)
+				printf("%s%#{abs_width}s%s", color_prefix, output, color_suffix)
 			else
-				printf("%-#{abs_width}s", output) # default to left justify
+				printf("%s%-#{abs_width}s%s", color_prefix, output, color_suffix) # default to left justify
 			end
 			print_column_separator unless index == (@columns.length - 1)
 		end
@@ -53,15 +55,17 @@ class FlexibleTable
 		exit unless columns_fit_screen?(@columns)
 
 		args.each_with_index do |element, index|
-			abs_width = get_abs_column_width(@total_screen_columns, @columns[index].width_percentage)
-			output    = get_printable_output(element, abs_width)
+			abs_width    = get_abs_column_width(@total_screen_columns, @columns[index].width_percentage)
+			color_prefix = element.instance_eval { @tu_color_prefix } || ''
+			color_suffix = element.instance_eval { @tu_color_suffix } || ''
+			output       = get_printable_output(element, abs_width)
 
 			if(@columns[index].justify_row == :left)
-				printf("%-#{abs_width}s", output)
+				printf("%s%-#{abs_width}s%s", color_prefix, output, color_suffix)
 			elsif(@columns[index].justify_row == :right)
-				printf("%#{abs_width}s", output)
+				printf("%s%#{abs_width}s%s", color_prefix, output, color_suffix)
 			else
-				printf("%-#{abs_width}s", output) # default to left justify
+				printf("%s%-#{abs_width}s%s", color_prefix, output, color_suffix) # default to left justify
 			end
 
 			print_column_separator unless index == (@columns.length - 1)

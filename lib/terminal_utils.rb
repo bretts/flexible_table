@@ -65,8 +65,6 @@ module TerminalUtils
 			def bg_bright_cyan;    return bg_color("\e[106m"); end
 			def bg_bright_grey;    return bg_color("\e[107m"); end
 
-			attr_reader :tu_color_prefix, :tu_color_suffix
-
 			private
 			def fg_color(ansi_code)
 				@tu_fg_color = ansi_code
