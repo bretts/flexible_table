@@ -30,7 +30,7 @@ module PrintHelper
 		return str.to_s[0..(abs_width - 1)]
 	end
 
-	def print_header_line(total_screen_columns)
+	def print_header_line(total_screen_columns, io: stdout)
 		line_header = ''
 		separator   = tty_supports_unicode? ? "\u2500" : '-'
 
@@ -39,7 +39,7 @@ module PrintHelper
 				line_header << separator
 			end
 		end
-		puts "#{line_header}\n"
+		io.puts "#{line_header}\n"
 	end
 
 	def columns_fit_screen?(columns)
@@ -55,10 +55,10 @@ module PrintHelper
 		end
 	end
 
-	def print_column_separator
+	def print_column_separator(io: $stdout)
 		separator = tty_supports_unicode? ? "\u2502" : '|'
 
-		printf(" #{separator} ")
+		io.printf(" #{separator} ")
 	end
 
 	private

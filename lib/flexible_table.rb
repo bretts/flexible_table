@@ -28,7 +28,7 @@ class FlexibleTable
 		@columns << FlexibleColumn.new(title, width_percentage, args)
 	end
 
-	def print_header()
+	def print_header(io: $stdout)
 		exit unless columns_fit_screen?(@columns)
 
 		@columns.each_with_index do |col, index|
@@ -38,20 +38,20 @@ class FlexibleTable
 			output       = get_printable_output(col.header, abs_width)
 
 			if(@columns[index].justify_header == :left)
-				printf("%s%-#{abs_width}s%s", color_prefix, output, color_suffix)
+				io.printf("%s%-#{abs_width}s%s", color_prefix, output, color_suffix)
 			elsif(@columns[index].justify_header == :right)
-				printf("%s%#{abs_width}s%s", color_prefix, output, color_suffix)
+				io.printf("%s%#{abs_width}s%s", color_prefix, output, color_suffix)
 			else
-				printf("%s%-#{abs_width}s%s", color_prefix, output, color_suffix) # default to left justify
+				io.printf("%s%-#{abs_width}s%s", color_prefix, output, color_suffix) # default to left justify
 			end
-			print_column_separator unless index == (@columns.length - 1)
+			print_column_separator(io: io) unless index == (@columns.length - 1)
 		end
 
-		puts "\n"
-		print_header_line(@total_screen_columns)
+		io.puts "\n"
+		print_header_line(@total_screen_columns, io: io)
 	end
 
-	def print_row(*args)
+	def print_row(*args, io: $stdout)
 		exit unless columns_fit_screen?(@columns)
 
 		args.each_with_index do |element, index|
@@ -61,15 +61,15 @@ class FlexibleTable
 			output       = get_printable_output(element, abs_width)
 
 			if(@columns[index].justify_row == :left)
-				printf("%s%-#{abs_width}s%s", color_prefix, output, color_suffix)
+				io.printf("%s%-#{abs_width}s%s", color_prefix, output, color_suffix)
 			elsif(@columns[index].justify_row == :right)
-				printf("%s%#{abs_width}s%s", color_prefix, output, color_suffix)
+				io.printf("%s%#{abs_width}s%s", color_prefix, output, color_suffix)
 			else
-				printf("%s%-#{abs_width}s%s", color_prefix, output, color_suffix) # default to left justify
+				io.printf("%s%-#{abs_width}s%s", color_prefix, output, color_suffix) # default to left justify
 			end
 
-			print_column_separator unless index == (@columns.length - 1)
+			print_column_separator(io: io) unless index == (@columns.length - 1)
 		end
-		puts "\n"
+		io.puts "\n"
 	end
 end
